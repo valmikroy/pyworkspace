@@ -240,30 +240,27 @@ def stock_watch(tickers=[]):
 
 
 print("\n")
-print( 
-    "VIX: ", Index('^VIX').last_price(), " ", 
-    "GVZ: ", Index('^GVZ').last_price(), " ",
-    "OIL: ", Index('CL=F').last_price(), " ",
-    "NAT: ", Index('NG=F').last_price(), " ",
-     )
+index = {
+    "VIX" : "^VIX",
+    "GVZ" : "^GVZ",
+    "OIL" : "CL=F",
+    "NAT" : "NG=F"
+}
+
+for key in index:
+    print(" ",key," ", Index(index[key]).last_price(),end='')
 print("\n")
 
-stocks = ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA']
-stock_watch(stocks)
-print("\n")
 
-sectors = ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','ITA']
-stock_watch(sectors)
-print("\n")
+stock = {
+    "Mag7": ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA'],
+    "Sector": ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','ITA'],
+    "Commodity": ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA'],
+    "Currency": ['BTC-USD','ETH-USD','UUP'],
+    "Fixed_Income": ['SHY', 'IEF', 'TLT', 'VGSH', 'BLV']
+}
 
-comm = ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA']
-stock_watch(comm)
-print("\n")
-
-crypto = ['BTC-USD','ETH-USD','UUP']
-stock_watch(crypto)
-print("\n")
-
-fixed_income = ['SHY', 'IEF', 'TLT']
-stock_watch(fixed_income)
-print("\n")
+for key in stock:
+    print("-->",key)
+    stock_watch(stock[key])
+    print("\n")
