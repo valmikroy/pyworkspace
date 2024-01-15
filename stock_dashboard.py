@@ -3,6 +3,7 @@
 
 import yfinance as yf
 from datetime import date
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from termcolor import colored, cprint
 from tabulate import tabulate
@@ -240,6 +241,7 @@ def stock_watch(tickers=[]):
 
 
 print("\n")
+print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 index = {
     "VIX" : "^VIX",
     "GVZ" : "^GVZ",
