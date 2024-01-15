@@ -29,19 +29,12 @@ class Index:
         df = self.df
         p = round(float(df['Close'].iloc[-1]),2) 
         if p > 20:
-            p = Index.red(p)
+            p = Stock.red(p)
         elif p < 12:
-            p = Index.green(p)
+            p = Stock.green(p)
         else:
             p = str(p)
         return p       
-    
-    def red(v):
-        return colored(v,'red',attrs=['reverse', 'blink'])
-                
-    def green(v):
-        return colored(v,'green',attrs=['reverse', 'blink'])
-
 
 class Stock:
 
@@ -122,24 +115,31 @@ class Stock:
         df = self.df
         week = 5 * -1
         month = week * 4
+        month_3 = month * 3
         year = month  * 12
 
         ret1 = round(float(df['Volume'].iloc[-2]),2) 
         ret2 = round(float(df['Volume'].iloc[week]),2) 
-        return [ ret1, ret2 ]
+        ret3 = round(float(df['Volume'].iloc[month]),2) 
+        ret4 = round(float(df['Volume'].iloc[month_3]),2) 
+        return [ ret1, ret2, ret3, ret4 ]
 
 
     def price_history(self):
         df = self.df
         week = 5 * -1
         month = week * 4
+        month_3 = month * 3
+        #month_6 = month * 6
+        #month_9 = month * 9
         year = month  * 12
 
         ret1 = round(float(df['Close'].iloc[-2]),2) 
         ret2 = round(float(df['Close'].iloc[week]),2) 
         ret3 = round(float(df['Close'].iloc[month]),2) 
-        ret4 = round(float(df['Close'].iloc[year]),2) 
-        return [ ret1, ret2, ret3, ret4 ]
+        ret4 = round(float(df['Close'].iloc[month_3]),2) 
+        ret5 = round(float(df['Close'].iloc[year]),2) 
+        return [ ret1, ret2, ret3, ret4, ret5 ]
     
     def last_price(self):
         df = self.df
@@ -155,16 +155,17 @@ class Stock:
         line.append(self.stock)
 
         # Last price
-        last = self.last_price()
-        line.append(str(last))
+        last_price = self.last_price()
+        line.append(str(last_price))
 
         # Price history 
         l = []
         for v in self.price_history():
-            if last > v:
-                l.append(Stock.red(v))      
+            vv = round(((last_price - v)/v)*100,2)
+            if last_price < v:
+                l.append(Stock.red(vv))      
             else:
-                l.append(Stock.green(v))      
+                l.append(Stock.green(vv))      
         line.append("/".join(str(z) for z in l ))
 
 
@@ -172,20 +173,22 @@ class Stock:
         l = []
         macd, signal = self.macd()
         if signal < 0 and signal < macd:
-            l = [str(macd), Stock.red(signal)]  
+            l = [Stock.left_padding(macd), Stock.red(signal)]  
         else:
-            l = [str(macd), Stock.green(signal)]  
+            l = [Stock.left_padding(macd), Stock.green(signal)]  
         line.append("/".join(str(z) for z in l ))
 
 
         # Bolinger
         l = []
         low, mid, high = self.bolinger()
-        if mid > last:
+        if mid > last_price:
             mid = Stock.red(mid)
-        elif low > last:
+
+        if low > last_price:
             low = Stock.red(low)
-        elif last > high:
+        
+        if last_price > high:
             high = Stock.green(high)
         l = [low, mid, high] 
         line.append("/".join(str(z) for z in l ))
@@ -199,11 +202,10 @@ class Stock:
 
         # Volume
         l = []
-        last_vol = self.last_volume()
-        l.append(last_vol)
+        cur_vol = self.last_volume()
         for v in self.vol_history():
-            vv = round(((last_vol - v)/v)*100,2)
-            if last_vol > v:
+            vv = round(((cur_vol - v)/v)*100,2)
+            if cur_vol < v:
                 l.append(Stock.green(vv))      
             else:
                 l.append(Stock.red(vv))      
@@ -213,14 +215,18 @@ class Stock:
 
 
     def stock_line_header():
-        return ['Ticker', 'Last', '1d/1w/1m/1y', 'macd/sig', 'low/mid/high', 'rsi', 'vol/1d/1w']
+        return ['Ticker', 'Last', '1d/1w/1m/3m/1y', 'macd/sig', 'low/mid/high', 'rsi', 'vol/1d/1w/1m/3m']
                 
     def red(v):
+        v = Stock.left_padding(v)
         return colored(v,'red',attrs=['reverse', 'blink'])
                 
     def green(v):
+        v = Stock.left_padding(v)
         return colored(v,'green',attrs=['reverse', 'blink'])
 
+    def left_padding(v,pad=6):
+        return ('{: >6}'.format(str(v)))
 
 def stock_watch(tickers=[]):
     all_data = []
@@ -234,17 +240,30 @@ def stock_watch(tickers=[]):
 
 
 print("\n")
-print( "VIX : ", Index('^VIX').last_price(), " ", "GVZ: ", Index('^GVZ').last_price())
+print( 
+    "VIX: ", Index('^VIX').last_price(), " ", 
+    "GVZ: ", Index('^GVZ').last_price(), " ",
+    "OIL: ", Index('CL=F').last_price(), " ",
+    "NAT: ", Index('NG=F').last_price(), " ",
+     )
 print("\n")
+
 stocks = ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA']
 stock_watch(stocks)
 print("\n")
-sectors = ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY']
+
+sectors = ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','ITA']
 stock_watch(sectors)
 print("\n")
+
 comm = ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA']
 stock_watch(comm)
 print("\n")
-crypto = ['BTC-USD','ETH-USD']
+
+crypto = ['BTC-USD','ETH-USD','UUP']
 stock_watch(crypto)
+print("\n")
+
+fixed_income = ['SHY', 'IEF', 'TLT']
+stock_watch(fixed_income)
 print("\n")
