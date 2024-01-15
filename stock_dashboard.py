@@ -256,7 +256,7 @@ print("\n")
 
 stock = {
     "Mag7": ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA'],
-    "Sector": ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','ITA'],
+    "Sector": ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE','ITA'],
     "Commodity": ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA'],
     "Currency": ['BTC-USD','ETH-USD','UUP'],
     "Fixed_Income": ['SHY', 'IEF', 'TLT', 'VGSH', 'BLV']
