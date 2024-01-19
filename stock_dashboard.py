@@ -244,25 +244,28 @@ print("\n")
 print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 index = {
     "VIX" : "^VIX",
-    "GVZ" : "^GVZ",
+#    "GVZ" : "^GVZ",
     "OIL" : "CL=F",
     "NAT" : "NG=F"
 }
 
-for key in index:
-    print(" ",key," ", Index(index[key]).last_price(),end='')
-print("\n")
 
 
 stock = {
     "Mag7": ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA'],
-    "Sector": ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE','ITA'],
-    "Commodity": ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA'],
+    "Sector": ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE', 'XLB', 'XLI', 'ITA'],
+    "Commodity": ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA', 'UNG', 'USO'],
     "Currency": ['BTC-USD','ETH-USD','UUP'],
-    "Fixed_Income": ['SHY', 'IEF', 'TLT', 'VGSH', 'BLV']
+    "Fixed_Income": ['SHY', 'IEF', 'TLT', 'VGSH', 'BLV'],
+    "Country": ['KWEB', 'INDA', 'EWJ'],
 }
 
 for key in stock:
     print("-->",key)
     stock_watch(stock[key])
     print("\n")
+
+
+for key in index:
+    print(" ",key," ", Index(index[key]).last_price(),end='')
+print("\n")
