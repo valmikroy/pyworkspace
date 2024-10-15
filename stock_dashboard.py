@@ -251,8 +251,8 @@ index = {
 
 stock = {
     "Mag7": ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA'],
-    "Sector": ['SPY', 'QQQ','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE', 'XLB', 'XLI', 'ITA', 'IYR'],
-    "Speciality" : ['MGK', 'VIG'],
+    "Sector": ['SPY', 'QQQ','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE', 'XLB', 'XLI', 'ITA', 'IYR', 'SOXX'],
+    "Speciality" : ['MGK', 'VIG', 'UNH', 'PFE'],
     "Commodity": ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA', 'UNG', 'USO'],
     "Currency": ['BTC-USD','ETH-USD','UUP'],
     "Fixed_Income": ['SHY', 'IEI', 'IEF', 'TLT', 'SPSB', 'SLQD'],
