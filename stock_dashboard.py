@@ -244,20 +244,20 @@ print("\n")
 print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 index = {
     "VIX" : "^VIX",
-#    "GVZ" : "^GVZ",
-    "OIL" : "CL=F",
-    "NAT" : "NG=F"
+    "GVZ" : "^GVZ"
 }
 
 
 
 stock = {
     "Mag7": ['AAPL', 'MSFT', 'AMZN', 'GOOG', 'META', 'TSLA', 'NVDA'],
-    "Sector": ['SPY','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE', 'XLB', 'XLI', 'ITA'],
+    "Sector": ['SPY', 'QQQ','XLV','XLU','XLP','XLRE','XLC','XLF','XLK','XLY','XLE', 'XLB', 'XLI', 'ITA', 'IYR'],
+    "Speciality" : ['MGK', 'VIG'],
     "Commodity": ['GLDM', 'SLV', 'PPLT', 'CPER', 'URA', 'UNG', 'USO'],
     "Currency": ['BTC-USD','ETH-USD','UUP'],
-    "Fixed_Income": ['SHY', 'IEF', 'TLT', 'VGSH', 'BLV'],
-    "Country": ['KWEB', 'INDA', 'EWJ'],
+    "Fixed_Income": ['SHY', 'IEI', 'IEF', 'TLT', 'SPSB', 'SLQD'],
+    "Country": ['KWEB', 'INDA', 'EWJ', 'EEM', 'EMXC', 'ACWX'],
+    "Index": ["CL=F","NG=F"]
 }
 
 for key in stock:
