@@ -174,7 +174,9 @@ class Stock:
         l = []
         macd, signal = self.macd()
         if signal < 0 and signal < macd:
-            l = [Stock.left_padding(macd), Stock.red(signal)]  
+            l = [Stock.left_padding(macd), Stock.red(signal)]
+        elif signal > 0 and signal < macd:
+            l = [Stock.left_padding(macd), Stock.red(signal)]     
         else:
             l = [Stock.left_padding(macd), Stock.green(signal)]  
         line.append("/".join(str(z) for z in l ))
